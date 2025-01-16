@@ -1,0 +1,25 @@
+local Players = game:GetService("Players")
+
+local function onplayerjoin(player)
+	local leaderstats = Instance.new("Folder")
+	leaderstats.Name = "leaderstats"
+	leaderstats.Parent = player
+
+
+	local TotalKills = Instance.new("IntValue")
+	TotalKills.Name = "Total Kills"
+	TotalKills.Value = 10302
+	TotalKills.Parent = leaderstats
+
+
+	local totao = Instance.new("IntValue")
+	totao.Name = "Daily Kills"
+	totao.Value = 146
+	totao.Parent = leaderstats
+
+
+
+
+end
+
+Players.PlayerAdded:Connect(onplayerjoin)
