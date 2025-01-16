@@ -1,0 +1,60 @@
+local module = {}
+
+local Debris = game:GetService("Debris")
+local EffectsFolder = game.ReplicatedStorage:WaitForChild("ConquerorsEffects")
+local CameraShaker = require(EffectsFolder:WaitForChild("CameraShaker"))
+
+local function ToggleParticles(Object, ToggleVal)
+	
+	for _,v in pairs(Object:GetChildren()) do
+		if v:IsA("ParticleEmitter") then
+			v.Enabled = ToggleVal
+		end
+	end
+	
+end
+
+local function CameraShake(LengthOfTime)
+	
+	local Camera = workspace.CurrentCamera
+	local CamShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(ShakeCFrame)
+		Camera.CFrame *= ShakeCFrame
+	end)
+	
+	CamShake:Start()
+	CamShake:ShakeSustain(CameraShaker.Presets.Explosion)
+	
+	
+	coroutine.wrap(function()
+		task.wait(LengthOfTime)
+		CamShake:StopSustained(.5)
+	end)()
+	
+end
+
+function module.RunConquerors(Character)
+	
+	local LENGTH = 5
+	
+	local ConqPart = EffectsFolder.ConquerorsPart:Clone()
+	ConqPart.Parent = workspace.Debris
+	ConqPart.CFrame = Character:GetPivot() * CFrame.new(0, -1, 0)
+	ConqPart.Transparency = 1
+	
+	local sound = EffectsFolder.Sound:Clone()
+	sound.Parent = ConqPart
+	sound:play()
+	
+	
+	
+	ToggleParticles(ConqPart.Attachment, true)
+	CameraShake(LENGTH)
+	
+	coroutine.wrap(function()
+		task.wait(LENGTH)
+		ToggleParticles(ConqPart.Attachment, false)
+		Debris:AddItem(ConqPart, 1)
+	end)()
+end
+
+return module
