@@ -1,0 +1,7 @@
+local UIS = game:GetService("UserInputService")
+local Module = require(script:WaitForChild("ConqHaki"))
+UIS.InputBegan:Connect(function(Key, GPE)
+	if Key.KeyCode == Enum.KeyCode.Q and not GPE then
+			Module.RunConquerors(game.Players.LocalPlayer.Character)
+	end
+end)
