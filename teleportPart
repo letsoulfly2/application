@@ -1,0 +1,6 @@
+script.Parent.Touched:Connect(function(Player)
+	local hum = Player.Parent:WaitForChild("Humanoid")
+	if hum then
+		Player.Position = game.Workspace.part2.Position
+	end
+end)
