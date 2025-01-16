@@ -1,0 +1,18 @@
+game.ReplicatedStorage.Transform.OnServerEvent:Connect(function(player, aura)
+	print("1")
+	local auraobject = game.Workspace.Auras:FindFirstChild(aura)
+	print("2")
+	if auraobject then
+		print("3")
+		for i,v in pairs(auraobject:GetChildren()) do
+			print("4")
+			if v:IsA("ParticleEmitter") then
+				print("5")
+				local particleClone = v:Clone()
+				print("6")
+				particleClone.Parent = player.Character.HumanoidRootPart
+				print("7")
+			end
+		end
+	end
+end)
