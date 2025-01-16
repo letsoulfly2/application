@@ -1,0 +1,18 @@
+local player = game:GetService("Players")
+local SpeedParts = workspace.Parts --Bunu Folder yapıp içine part at  
+
+local function setWalkSpeed(speed, humanoid)
+	humanoid.WalkSpeed = speed
+end
+
+
+
+for _, part in pairs(SpeedParts:GetChildren()) do
+	part.Touched:Connect(function(hit)
+		print("touched")
+		if hit.Parent:FindFirstChild("Humanoid") then
+			setWalkSpeed(100, hit.Parent:FindFirstChild("Humanoid"))
+			print("player's speed changed..")
+		end
+	end)
+end
